@@ -1,6 +1,5 @@
 import { ChangeEvent, ReactElement } from "react"
 
-import { useForm } from '../../shared/hooks'
 import { SEARCH_FIELD_LABEL, SEARCH_FIELD_PLACEHOLDER } from '../../shared/constants'
 
 import {
@@ -11,14 +10,12 @@ import {
 
 type SearchFieldProps = {
     search: string;
-    handleFormChange: (event: ChangeEvent<HTMLInputElement>) => void;
-    resetForm: () => void;
+    handleFormChange: (event: ChangeEvent<HTMLInputElement>) => void
 }
 
 const SearchField = ({
     search,
-    handleFormChange,
-    resetForm
+    handleFormChange
 }: SearchFieldProps): ReactElement => (
     <SearchFieldWrapper role="search">
         <SearchFieldLabel>

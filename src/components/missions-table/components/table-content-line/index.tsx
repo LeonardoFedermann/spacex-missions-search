@@ -1,5 +1,4 @@
 import { ReactElement } from "react";
-import { Link } from "react-router-dom";
 
 import { MissionTableCell } from '../../styles'
 import { NavigateLink, ExternalLink } from './styles'

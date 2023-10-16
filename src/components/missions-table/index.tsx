@@ -5,7 +5,6 @@ import { MissionsTableWrapper, MissionTableTitleCell, NoMatchWithSearchMessage }
 import { Mission } from "../../shared/types"
 
 import {
-    TABLE_TITLE_FAVORITE,
     TABLE_TITLE_NAME,
     TABLE_TITLE_ID,
     TABLE_TITLE_WEBSITE,

@@ -23,16 +23,16 @@ export type Error = {
 	error: string;
 };
 
-export enum requestPossibleStatuses {
+export enum RequestPossibleStatuses {
 	SUCCESS = "success",
 	ERROR = "error",
 	LOADING = "loading",
 }
 
-export type PossibleDisplayedSearchContents = {
-	[requestPossibleStatuses.SUCCESS]: ReactElement;
-	[requestPossibleStatuses.LOADING]: ReactElement;
-	[requestPossibleStatuses.ERROR]: ReactElement;
+export type PossibleDisplayedContents = {
+	[RequestPossibleStatuses.SUCCESS]: ReactElement;
+	[RequestPossibleStatuses.LOADING]: ReactElement;
+	[RequestPossibleStatuses.ERROR]: ReactElement;
 };
 
 export type MissionTableCellProps = {

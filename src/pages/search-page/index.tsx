@@ -1,32 +1,32 @@
-import { ReactElement, useEffect, useState, useMemo } from 'react'
+import { ReactElement, useEffect, useState } from 'react'
 
 import { useForm, useDisplayedMissions } from '../../shared/hooks'
 import SearchField from '../../components/search-field'
 import MissionsTable from '../../components/missions-table'
 import { SearchPageWrapper } from './styles'
-import { Mission, requestPossibleStatuses, PossibleDisplayedSearchContents } from "../../shared/types"
+import { Mission, RequestPossibleStatuses, PossibleDisplayedContents } from "../../shared/types"
 import { fetchMissions } from '../../shared/utils'
 
 const SearchPage = (): ReactElement => {
-    const { form, handleFormChange, resetForm } = useForm({ search: "" })
+    const { form, handleFormChange } = useForm({ search: "" })
     const [fetchedMissions, setFetchedMissions] = useState<Mission[]>([])
-    const [requestStatus, setRequestStatus] = useState<requestPossibleStatuses>(
-        requestPossibleStatuses.LOADING
+    const [requestStatus, setRequestStatus] = useState<RequestPossibleStatuses>(
+        RequestPossibleStatuses.LOADING
     )
     const displayedMissions: Mission[] = useDisplayedMissions(fetchedMissions, form.search)
 
-    const possibleDisplayedSearchContents: PossibleDisplayedSearchContents = {
-        [requestPossibleStatuses.SUCCESS]: <MissionsTable missions={displayedMissions} />,
-        [requestPossibleStatuses.LOADING]: <div>Carregando...</div>,
-        [requestPossibleStatuses.ERROR]: <div>DEU RUUUUUIM</div>
+    const possibleDisplayedSearchContents: PossibleDisplayedContents = {
+        [RequestPossibleStatuses.SUCCESS]: <MissionsTable missions={displayedMissions} />,
+        [RequestPossibleStatuses.LOADING]: <div>Carregando...</div>,
+        [RequestPossibleStatuses.ERROR]: <div>DEU RUUUUUIM</div>
     }
 
     useEffect(() => {
         fetchMissions().then(fetchedMissions => {
             setFetchedMissions(fetchedMissions)
-            setRequestStatus(requestPossibleStatuses.SUCCESS)
+            setRequestStatus(RequestPossibleStatuses.SUCCESS)
         }).catch(() => {
-            setRequestStatus(requestPossibleStatuses.ERROR)
+            setRequestStatus(RequestPossibleStatuses.ERROR)
         })
     }, [])
 
@@ -36,7 +36,6 @@ const SearchPage = (): ReactElement => {
                 <SearchField
                     search={form.search}
                     handleFormChange={handleFormChange}
-                    resetForm={resetForm}
                 />
                 {possibleDisplayedSearchContents[requestStatus]}
             </>

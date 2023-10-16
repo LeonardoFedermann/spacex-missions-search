@@ -5,13 +5,21 @@ const SearchPage = lazy(() => import("./pages/search-page"))
 const ProfilePage = lazy(() => import("./pages/profile-page"))
 
 const Router = (): ReactElement => (
-    <Suspense fallback={null}>
-        <Routes>
-            <Route index element={<SearchPage />} />
-            <Route path="/:id" element={<ProfilePage />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-    </Suspense>
+    <Routes>
+        <Route index element={(
+            <Suspense fallback={null}>
+                <SearchPage />
+            </Suspense>
+        )} />
+        <Route path="/:id" element={(<Suspense fallback={null}>
+            <ProfilePage />
+        </Suspense>
+        )} />
+        <Route path="*" element={(<Suspense fallback={null}>
+            <Navigate to="/" replace />
+        </Suspense>
+        )} />
+    </Routes>
 )
 
 export default Router
