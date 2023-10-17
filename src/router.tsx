@@ -11,13 +11,15 @@ const Router = (): ReactElement => (
                 <SearchPage />
             </Suspense>
         )} />
-        <Route path="/:id" element={(<Suspense fallback={null}>
-            <ProfilePage />
-        </Suspense>
+        <Route path="/:id" element={(
+            <Suspense fallback={null}>
+                <ProfilePage />
+            </Suspense>
         )} />
-        <Route path="*" element={(<Suspense fallback={null}>
-            <Navigate to="/" replace />
-        </Suspense>
+        <Route path="*" element={(
+            <Suspense fallback={null}>
+                <Navigate to="/" replace />
+            </Suspense>
         )} />
     </Routes>
 )

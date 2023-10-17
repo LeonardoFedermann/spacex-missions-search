@@ -12,6 +12,10 @@ export const TABLE_TITLE_WEBSITE: string = "Website";
 export const TABLE_TITLE_FAVORITE: string = "Favorite";
 export const NO_MATCH_WITH_SEARCH_MESSAGE: string =
 	"No missions match this search";
+export const LOADING_ARIA_LABEL: string = "Loading...";
+export const REQUEST_ERROR_MESSAGE: string =
+	"There was an error in SpaceX system. Please try again later.";
+export const MISSION_NOT_FOUND_ERROR_MESSAGE: string = "Mission not found";
 
 export const MISSION_DESSERIALIZED_PROPERTIES: ObjectOfLabels = {
 	mission_name: "name",

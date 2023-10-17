@@ -1,6 +1,6 @@
-import { ChangeEvent, useState, useMemo } from "react";
+import { ChangeEvent, useState, useMemo, useEffect } from "react";
 
-import { GenericObject, Mission } from "./types";
+import { GenericObject, Mission, RequestPossibleStatuses } from "./types";
 
 export const useForm = (initialForm: GenericObject) => {
 	const [form, setForm] = useState<GenericObject>(initialForm);
@@ -28,3 +28,4 @@ export const useDisplayedMissions = (
 			),
 		[fetchedMissions, search]
 	);
+

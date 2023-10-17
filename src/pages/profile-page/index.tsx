@@ -1,9 +1,12 @@
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useState, useEffect, useReducer } from "react";
 import { useParams } from "react-router";
 
-import { fetchMission } from "../../shared/utils";
+import { fetchMission, handleFetchMissionError, handleFetchMissionSuccess } from "../../shared/utils";
 import MissionInfo from "../../components/mission-info";
+import Spinner from "../../components/spinner";
+import ErrorMessage from '../../components/error_message'
 import { ProfilePageWrapper, NavigateLink } from "./styles"
+import { MISSION_NOT_FOUND_ERROR_MESSAGE, REQUEST_ERROR_MESSAGE } from "../../shared/constants";
 
 import {
     Mission,
@@ -17,23 +20,38 @@ const ProfilePage = (): ReactElement => {
     const [requestStatus, setRequestStatus] = useState<RequestPossibleStatuses>(
         RequestPossibleStatuses.LOADING
     )
+    const [missionNotFound, toggleMissionNotFound] = useReducer(
+        missionNotFound => !missionNotFound,
+        false
+    )
 
     const possibleDisplayedContents: PossibleDisplayedContents = {
         [RequestPossibleStatuses.SUCCESS]: <MissionInfo mission={mission} />,
-        [RequestPossibleStatuses.LOADING]: <div>Carregando...</div>,
-        [RequestPossibleStatuses.ERROR]: <div>DEU RUUUUUIM</div>
+        [RequestPossibleStatuses.LOADING]: <Spinner />,
+        [RequestPossibleStatuses.ERROR]: (
+            <ErrorMessage
+                message={(
+                    missionNotFound ?
+                        MISSION_NOT_FOUND_ERROR_MESSAGE :
+                        REQUEST_ERROR_MESSAGE
+                )}
+            />
+        )
     }
 
     useEffect(() => {
         fetchMission(id ?? '').then(fetchedMission => {
-            if (fetchedMission) {
-                setMission(fetchedMission)
-                setRequestStatus(RequestPossibleStatuses.SUCCESS)
-            } else {
-                setRequestStatus(RequestPossibleStatuses.ERROR)
-            }
-        }).catch(() => {
-            setRequestStatus(RequestPossibleStatuses.ERROR)
+            handleFetchMissionSuccess({
+                fetchedMission,
+                setMission,
+                setRequestStatus
+            })
+        }).catch(error => {
+            handleFetchMissionError({
+                errorMessage: error.message,
+                toggleMissionNotFound,
+                setRequestStatus
+            })
         })
     }, [id])
 
