@@ -1,11 +1,19 @@
-import { ReactElement, useEffect, useState } from 'react'
+import { ReactElement, useState, useEffect } from 'react'
 
 import { useForm, useDisplayedMissions } from '../../shared/hooks'
 import SearchField from '../../components/search-field'
 import MissionsTable from '../../components/missions-table'
+import Spinner from '../../components/spinner'
+import ErrorMessage from '../../components/error_message'
 import { SearchPageWrapper } from './styles'
-import { Mission, RequestPossibleStatuses, PossibleDisplayedContents } from "../../shared/types"
 import { fetchMissions } from '../../shared/utils'
+import { REQUEST_ERROR_MESSAGE } from "../../shared/constants";
+
+import {
+    Mission,
+    RequestPossibleStatuses,
+    PossibleDisplayedContents
+} from "../../shared/types"
 
 const SearchPage = (): ReactElement => {
     const { form, handleFormChange } = useForm({ search: "" })
@@ -16,29 +24,33 @@ const SearchPage = (): ReactElement => {
     const displayedMissions: Mission[] = useDisplayedMissions(fetchedMissions, form.search)
 
     const possibleDisplayedSearchContents: PossibleDisplayedContents = {
-        [RequestPossibleStatuses.SUCCESS]: <MissionsTable missions={displayedMissions} />,
-        [RequestPossibleStatuses.LOADING]: <div>Carregando...</div>,
-        [RequestPossibleStatuses.ERROR]: <div>DEU RUUUUUIM</div>
-    }
-
-    useEffect(() => {
-        fetchMissions().then(fetchedMissions => {
-            setFetchedMissions(fetchedMissions)
-            setRequestStatus(RequestPossibleStatuses.SUCCESS)
-        }).catch(() => {
-            setRequestStatus(RequestPossibleStatuses.ERROR)
-        })
-    }, [])
-
-    return (
-        <SearchPageWrapper>
+        [RequestPossibleStatuses.LOADING]: <Spinner />,
+        [RequestPossibleStatuses.ERROR]: <ErrorMessage message={REQUEST_ERROR_MESSAGE} />,
+        [RequestPossibleStatuses.SUCCESS]: (
             <>
                 <SearchField
                     search={form.search}
                     handleFormChange={handleFormChange}
                 />
-                {possibleDisplayedSearchContents[requestStatus]}
+                <MissionsTable missions={displayedMissions} />
             </>
+        ),
+    }
+
+    useEffect(() => {
+        fetchMissions()
+            .then(fetchedMissions => {
+                setFetchedMissions(fetchedMissions);
+                setRequestStatus(RequestPossibleStatuses.SUCCESS);
+            })
+            .catch(() => {
+                setRequestStatus(RequestPossibleStatuses.ERROR);
+            });
+    }, []);
+
+    return (
+        <SearchPageWrapper>
+            {possibleDisplayedSearchContents[requestStatus]}
         </SearchPageWrapper>
     )
 }

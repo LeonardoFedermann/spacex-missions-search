@@ -19,28 +19,28 @@ type MissionInfoProps = {
 
 const MissionInfo = ({ mission }: MissionInfoProps): ReactElement => (
     <>
-        <MissionTitle>{mission.name}</MissionTitle>
+        <MissionTitle>{mission?.name ?? ''}</MissionTitle>
         <MissionInfoWrapper>
-            <MissionInfoText title="Mission ID" text={mission.id} />
+            <MissionInfoText title="Mission ID" text={mission?.id ?? ''} />
             <MissionInfoText
                 title="Manufacturers"
-                text={convertListToPlainText(mission.manufacturers)}
+                text={convertListToPlainText(mission?.manufacturers ?? [])}
             />
             <MissionInfoText
                 title="Payload IDs"
-                text={convertListToPlainText(mission.payloadIds)}
+                text={convertListToPlainText(mission?.payloadIds ?? [])}
             />
-            <MissionInfoText title="Website" text={mission.website} />
-            <MissionInfoText title="Description" text={mission.description} />
+            <MissionInfoText title="Website" text={mission?.website ?? ''} />
+            <MissionInfoText title="Description" text={mission?.description ?? ''} />
             <MissionSitesAnchorsWrapper>
                 <MissionSiteAnchor
                     site="Wikipedia"
-                    href={mission.wikipedia}
+                    href={mission?.wikipedia ?? ''}
                     logo={wikipediaLogo}
                 />
                 <MissionSiteAnchor
                     site="Twitter"
-                    href={mission.twitter}
+                    href={mission?.twitter ?? ''}
                     logo={twitterLogo}
                 />
             </MissionSitesAnchorsWrapper>

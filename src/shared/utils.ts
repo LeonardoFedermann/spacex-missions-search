@@ -1,6 +1,10 @@
-import { Mission, GenericObject } from "./types";
-import { MISSION_DESSERIALIZED_PROPERTIES } from "./constants";
+import { Mission, GenericObject, RequestPossibleStatuses } from "./types";
 import { BASE_URL } from "../config";
+
+import {
+	MISSION_DESSERIALIZED_PROPERTIES,
+	MISSION_NOT_FOUND_ERROR_MESSAGE,
+} from "./constants";
 
 const desserializeMission = (mission: GenericObject): Mission =>
 	Object.keys(mission).reduce(
@@ -28,3 +32,32 @@ export const fetchMission = async (id: string): Promise<Mission | void> =>
 
 export const convertListToPlainText = (list: (string | number)[]): string =>
 	list.join(", ");
+
+export const handleFetchMissionSuccess = ({
+	fetchedMission,
+	setMission,
+	setRequestStatus,
+}: GenericObject): void => {
+	if (!fetchedMission?.name) {
+		throw new Error(MISSION_NOT_FOUND_ERROR_MESSAGE);
+	}
+
+	if (fetchedMission) {
+		setMission(fetchedMission);
+		setRequestStatus(RequestPossibleStatuses.SUCCESS);
+	} else {
+		setRequestStatus(RequestPossibleStatuses.ERROR);
+	}
+};
+
+export const handleFetchMissionError = ({
+	errorMessage,
+	toggleMissionNotFound,
+	setRequestStatus,
+}: GenericObject): void => {
+	if (errorMessage === MISSION_NOT_FOUND_ERROR_MESSAGE) {
+		toggleMissionNotFound();
+	}
+
+	setRequestStatus(RequestPossibleStatuses.ERROR);
+};
