@@ -1,18 +1,20 @@
 import { ReactElement, useState, useEffect, useReducer } from "react";
 import { useParams } from "react-router";
 
-import { fetchMission, handleFetchMissionError, handleFetchMissionSuccess } from "../../shared/utils";
 import MissionInfo from "../../components/mission-info";
-import Spinner from "../../components/spinner";
-import ErrorMessage from '../../components/error_message'
+import { Mission, RequestPossibleStatuses } from "../../shared/types";
+import { withRequestStatusHandling } from '../../shared/hocs'
 import { ProfilePageWrapper, NavigateLink } from "./styles"
-import { MISSION_NOT_FOUND_ERROR_MESSAGE, REQUEST_ERROR_MESSAGE } from "../../shared/constants";
 
 import {
-    Mission,
-    RequestPossibleStatuses,
-    PossibleDisplayedContents
-} from "../../shared/types";
+    fetchMission,
+    handleFetchMissionError,
+    handleFetchMissionSuccess
+} from "../../shared/utils";
+import {
+    MISSION_NOT_FOUND_ERROR_MESSAGE,
+    REQUEST_ERROR_MESSAGE
+} from "../../shared/constants";
 
 const ProfilePage = (): ReactElement => {
     const { id } = useParams()
@@ -25,19 +27,11 @@ const ProfilePage = (): ReactElement => {
         false
     )
 
-    const possibleDisplayedContents: PossibleDisplayedContents = {
-        [RequestPossibleStatuses.SUCCESS]: <MissionInfo mission={mission} />,
-        [RequestPossibleStatuses.LOADING]: <Spinner />,
-        [RequestPossibleStatuses.ERROR]: (
-            <ErrorMessage
-                message={(
-                    missionNotFound ?
-                        MISSION_NOT_FOUND_ERROR_MESSAGE :
-                        REQUEST_ERROR_MESSAGE
-                )}
-            />
-        )
-    }
+    const contentWithRequestStatusHandling = withRequestStatusHandling(
+        () => <MissionInfo mission={mission} />,
+        missionNotFound ? MISSION_NOT_FOUND_ERROR_MESSAGE : REQUEST_ERROR_MESSAGE,
+        requestStatus
+    )
 
     useEffect(() => {
         fetchMission(id ?? '').then(fetchedMission => {
@@ -60,7 +54,7 @@ const ProfilePage = (): ReactElement => {
             <NavigateLink to="/">
                 Search Page
             </NavigateLink>
-            {possibleDisplayedContents[requestStatus]}
+            {contentWithRequestStatusHandling}
         </ProfilePageWrapper>
     )
 }
