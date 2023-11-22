@@ -2,8 +2,8 @@ import { ReactElement, useState, useEffect, useReducer } from "react";
 import { useParams } from "react-router";
 
 import MissionInfo from "../../components/mission-info";
-import { Mission, RequestPossibleStatuses } from "../../shared/types";
-import { withRequestStatusHandling } from '../../shared/hocs'
+import Spinner from "../../components/spinner";
+import ErrorMessage from '../../components/error_message'
 import { ProfilePageWrapper, NavigateLink } from "./styles"
 
 import {
@@ -15,6 +15,11 @@ import {
     MISSION_NOT_FOUND_ERROR_MESSAGE,
     REQUEST_ERROR_MESSAGE
 } from "../../shared/constants";
+import {
+    Mission,
+    RequestPossibleStatuses,
+    PossibleDisplayedContents
+} from "../../shared/types";
 
 const ProfilePage = (): ReactElement => {
     const { id } = useParams()
@@ -27,11 +32,19 @@ const ProfilePage = (): ReactElement => {
         false
     )
 
-    const contentWithRequestStatusHandling = withRequestStatusHandling(
-        () => <MissionInfo mission={mission} />,
-        missionNotFound ? MISSION_NOT_FOUND_ERROR_MESSAGE : REQUEST_ERROR_MESSAGE,
-        requestStatus
-    )
+    const possibleDisplayedContents: PossibleDisplayedContents = {
+        [RequestPossibleStatuses.SUCCESS]: <MissionInfo mission={mission} />,
+        [RequestPossibleStatuses.LOADING]: <Spinner />,
+        [RequestPossibleStatuses.ERROR]: (
+            <ErrorMessage
+                message={(
+                    missionNotFound ?
+                        MISSION_NOT_FOUND_ERROR_MESSAGE :
+                        REQUEST_ERROR_MESSAGE
+                )}
+            />
+        )
+    }
 
     useEffect(() => {
         fetchMission(id ?? '').then(fetchedMission => {
@@ -54,7 +67,7 @@ const ProfilePage = (): ReactElement => {
             <NavigateLink to="/">
                 Search Page
             </NavigateLink>
-            {contentWithRequestStatusHandling}
+            {possibleDisplayedContents[requestStatus]}
         </ProfilePageWrapper>
     )
 }

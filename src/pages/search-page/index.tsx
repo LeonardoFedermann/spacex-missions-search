@@ -3,11 +3,17 @@ import { ReactElement, useState, useEffect } from 'react'
 import { useForm, useDisplayedMissions } from '../../shared/hooks'
 import SearchField from '../../components/search-field'
 import MissionsTable from '../../components/missions-table'
+import Spinner from '../../components/spinner'
+import ErrorMessage from '../../components/error_message'
 import { SearchPageWrapper } from './styles'
 import { fetchMissions } from '../../shared/utils'
 import { REQUEST_ERROR_MESSAGE } from "../../shared/constants";
-import { withRequestStatusHandling } from '../../shared/hocs'
-import { Mission, RequestPossibleStatuses } from "../../shared/types"
+
+import {
+    Mission,
+    RequestPossibleStatuses,
+    PossibleDisplayedContents
+} from "../../shared/types"
 
 const SearchPage = (): ReactElement => {
     const { form, handleFormChange } = useForm({ search: "" })
@@ -16,8 +22,11 @@ const SearchPage = (): ReactElement => {
         RequestPossibleStatuses.LOADING
     )
     const displayedMissions: Mission[] = useDisplayedMissions(fetchedMissions, form.search)
-    const contentWithRequestStatusHandling = withRequestStatusHandling(
-        () => (
+
+    const possibleDisplayedSearchContents: PossibleDisplayedContents = {
+        [RequestPossibleStatuses.LOADING]: <Spinner />,
+        [RequestPossibleStatuses.ERROR]: <ErrorMessage message={REQUEST_ERROR_MESSAGE} />,
+        [RequestPossibleStatuses.SUCCESS]: (
             <>
                 <SearchField
                     search={form.search}
@@ -26,9 +35,7 @@ const SearchPage = (): ReactElement => {
                 <MissionsTable missions={displayedMissions} />
             </>
         ),
-        REQUEST_ERROR_MESSAGE,
-        requestStatus
-    )
+    }
 
     useEffect(() => {
         fetchMissions()
@@ -43,7 +50,7 @@ const SearchPage = (): ReactElement => {
 
     return (
         <SearchPageWrapper>
-            {contentWithRequestStatusHandling}
+            {possibleDisplayedSearchContents[requestStatus]}
         </SearchPageWrapper>
     )
 }
