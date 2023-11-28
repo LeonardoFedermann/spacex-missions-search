@@ -10,7 +10,8 @@ import twitterLogo from "../../images/twitter-logo.png"
 import {
     MissionTitle,
     MissionInfoWrapper,
-    MissionSitesAnchorsWrapper
+    MissionSitesAnchorsWrapper,
+    MissionWebsiteLink
 } from "./styles"
 
 type MissionInfoProps = {
@@ -21,17 +22,21 @@ const MissionInfo = ({ mission }: MissionInfoProps): ReactElement => (
     <>
         <MissionTitle>{mission?.name ?? ''}</MissionTitle>
         <MissionInfoWrapper>
-            <MissionInfoText title="Mission ID" text={mission?.id ?? ''} />
+            <MissionInfoText title="Mission ID" content={mission?.id ?? ''} />
             <MissionInfoText
                 title="Manufacturers"
-                text={convertListToPlainText(mission?.manufacturers ?? [])}
+                content={convertListToPlainText(mission?.manufacturers ?? [])}
             />
             <MissionInfoText
                 title="Payload IDs"
-                text={convertListToPlainText(mission?.payloadIds ?? [])}
+                content={convertListToPlainText(mission?.payloadIds ?? [])}
             />
-            <MissionInfoText title="Website" text={mission?.website ?? ''} />
-            <MissionInfoText title="Description" text={mission?.description ?? ''} />
+            <MissionInfoText title="Website" content={(
+                <MissionWebsiteLink href={mission?.website ? mission?.website : "#"}>
+                    {mission?.website ?? ''}
+                </MissionWebsiteLink>
+            )} />
+            <MissionInfoText title="Description" content={mission?.description ?? ''} />
             <MissionSitesAnchorsWrapper>
                 <MissionSiteAnchor
                     site="Wikipedia"

@@ -4,7 +4,7 @@ import { useParams } from "react-router";
 import MissionInfo from "../../components/mission-info";
 import Spinner from "../../components/spinner";
 import ErrorMessage from '../../components/error_message'
-import { ProfilePageWrapper, NavigateLink } from "./styles"
+import { ProfilePageWrapper, NavigateLink, GoBackIcon } from "./styles"
 
 import {
     fetchMission,
@@ -65,7 +65,7 @@ const ProfilePage = (): ReactElement => {
     return (
         <ProfilePageWrapper>
             <NavigateLink to="/">
-                Search Page
+                <GoBackIcon>&#x25c0;</GoBackIcon> Search Page
             </NavigateLink>
             {possibleDisplayedContents[requestStatus]}
         </ProfilePageWrapper>

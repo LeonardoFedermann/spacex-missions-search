@@ -1,10 +1,13 @@
 import { Mission, GenericObject, RequestPossibleStatuses } from "./types";
 import { BASE_URL } from "../config";
+import Spinner from "../components/spinner";
+import ErrorMessage from "../components/error_message";
 
 import {
 	MISSION_DESSERIALIZED_PROPERTIES,
 	MISSION_NOT_FOUND_ERROR_MESSAGE,
 } from "./constants";
+import { ReactElement } from "react";
 
 const desserializeMission = (mission: GenericObject): Mission =>
 	Object.keys(mission).reduce(
@@ -61,3 +64,4 @@ export const handleFetchMissionError = ({
 
 	setRequestStatus(RequestPossibleStatuses.ERROR);
 };
+

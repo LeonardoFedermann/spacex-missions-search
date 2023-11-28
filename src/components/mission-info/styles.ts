@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+import { colors } from "../../shared/styles";
+
+const { COLOR_WHITE, LIGHT_GREY } = colors;
+
 export const MissionInfoWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -18,4 +22,12 @@ export const MissionSitesAnchorsWrapper = styled.div`
 	align-items: center;
 	width: 125px;
 	justify-content: space-between;
+	margin-top: 10px;
+`;
+
+export const MissionWebsiteLink = styled.a`
+	color: ${COLOR_WHITE};
+	&:hover {
+		color: ${LIGHT_GREY};
+	}
 `;

@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, ReactNode } from "react";
 
 export type GenericObject = {
 	[key: string]: any;
@@ -6,6 +6,10 @@ export type GenericObject = {
 
 export type ObjectOfLabels = {
 	[key: string]: string;
+};
+
+export type ObjectOfNumbers = {
+	[key: string]: number;
 };
 
 export type Mission = {

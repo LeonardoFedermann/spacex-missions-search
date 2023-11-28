@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import { breakpoints } from "../../shared/styles";
 
 export const SearchFieldWrapper = styled.fieldset`
 	display: flex;
@@ -18,4 +19,7 @@ export const SearchFieldInput = styled.input`
 	font-size: 20px;
 	border-radius: 10px;
 	padding: 5px;
+	@media (max-width: ${breakpoints.MOBILE_BREAKPOINT}px) {
+		width: 300px;
+	}
 `;

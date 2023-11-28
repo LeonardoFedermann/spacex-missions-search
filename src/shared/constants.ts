@@ -1,7 +1,7 @@
 import { ObjectOfLabels } from "./types";
 
-export const TABLE_CELL_WIDTH: number = 200;
-export const TABLE_CELL_HEIGHT: number = 50;
+export const TABLE_CELL_WIDTH_DESKTOP: number = 200;
+export const TABLE_CELL_HEIGHT_DESKTOP: number = 50;
 
 export const MAIN_TITLE: string = "SpaceX Missions Search";
 export const SEARCH_FIELD_PLACEHOLDER: string = "Example:  Iridium";

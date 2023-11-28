@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-import { COLOR_WHITE, COLOR_BLACK } from "../../styles/colors";
+import { colors } from "../../shared/styles";
+
+const { COLOR_WHITE, COLOR_BLACK } = colors;
 
 export const SpinnerWrapper = styled.div`
 	width: 100%;

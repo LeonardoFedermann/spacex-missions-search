@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-import { COLOR_WHITE } from "../../../../styles/colors";
+import { colors } from "../../../../shared/styles";
 
 export const MissionSiteAnchorWrapper = styled.a`
-	background: ${COLOR_WHITE};
+	background: ${colors.COLOR_WHITE};
 	border-radius: 10px;
 	cursor: pointer;
 	padding: 5px;

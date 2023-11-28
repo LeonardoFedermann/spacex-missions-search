@@ -2,18 +2,18 @@ import { ReactElement } from 'react'
 
 import { MissionInfoTextWrapper } from "./styles"
 
-type MissionInfoTextProps = {
+type MissionInfoContentProps = {
     title: string;
-    text: string;
+    content: string | ReactElement;
 }
 
-const MissionInfoText = ({
+const MissionInfoContent = ({
     title,
-    text
-}: MissionInfoTextProps): ReactElement => (
+    content
+}: MissionInfoContentProps): ReactElement => (
     <MissionInfoTextWrapper>
-        <strong>{title}: </strong> {text}
+        <strong>{title}: </strong> {content}
     </MissionInfoTextWrapper>
 )
 
-export default MissionInfoText
+export default MissionInfoContent

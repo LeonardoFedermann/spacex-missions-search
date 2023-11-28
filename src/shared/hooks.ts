@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, useMemo, useEffect } from "react";
+import { ChangeEvent, useState, useMemo } from "react";
 
 import { GenericObject, Mission, RequestPossibleStatuses } from "./types";
 
