@@ -1,15 +1,7 @@
-import { ReactElement, ReactNode } from "react";
+import { ReactElement } from "react";
 
-export type GenericObject = {
-	[key: string]: any;
-};
-
-export type ObjectOfLabels = {
-	[key: string]: string;
-};
-
-export type ObjectOfNumbers = {
-	[key: string]: number;
+export type GenericObject<KeysType> = {
+	[key: string]: KeysType;
 };
 
 export type Mission = {
@@ -39,6 +31,16 @@ export type PossibleDisplayedContents = {
 	[RequestPossibleStatuses.ERROR]: ReactElement;
 };
 
-export type MissionTableCellProps = {
-	isLastRightCell?: boolean;
+export enum MissionActionTypes {
+	ADD_FAVORITE_MISSION = "ADD_FAVORITE_MISSION",
+	REMOVE_FAVORITE_MISSION = "REMOVE_FAVORITE_MISSION",
+}
+
+export type MissionActionPayload = {
+	missionId: string;
+};
+
+export type MissionAction = {
+	type: string;
+	payload: MissionActionPayload;
 };

@@ -4,7 +4,7 @@ import { useForm, useDisplayedMissions } from '../../shared/hooks'
 import SearchField from '../../components/search-field'
 import MissionsTable from '../../components/missions-table'
 import Spinner from '../../components/spinner'
-import ErrorMessage from '../../components/error_message'
+import ErrorMessage from '../../components/error-message'
 import { SearchPageWrapper } from './styles'
 import { fetchMissions } from '../../shared/utils'
 import { REQUEST_ERROR_MESSAGE } from "../../shared/constants";

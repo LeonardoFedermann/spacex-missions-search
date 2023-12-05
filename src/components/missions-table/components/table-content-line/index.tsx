@@ -1,7 +1,12 @@
 import { ReactElement } from "react";
 
-import { MissionTableCell } from '../../styles'
-import { NavigateLink, ExternalLink } from './styles'
+import {
+    NavigateLink,
+    ExternalLink,
+    MissionTableLastRightCell,
+    MissionTableCell,
+    FavoriteButton
+} from './styles'
 
 type TableContentLineProps = {
     name: string;
@@ -21,7 +26,7 @@ const TableContentLine = ({
         <MissionTableCell>
             {id}
         </MissionTableCell>
-        <MissionTableCell isLastRightCell>
+        <MissionTableCell>
             <ExternalLink
                 target="_blank"
                 href={website}
@@ -29,6 +34,10 @@ const TableContentLine = ({
                 {website}
             </ExternalLink>
         </MissionTableCell>
+        <MissionTableLastRightCell>
+            <FavoriteButton>&#9734;</FavoriteButton>
+            {/* ÍCONE PARA ESTRELHA CHEIA: &#9733; */}
+        </MissionTableLastRightCell>
     </tr>
 )
 

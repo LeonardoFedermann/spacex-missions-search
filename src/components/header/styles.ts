@@ -1,17 +1,19 @@
 import styled from "styled-components";
 
-import { colors, breakpoints } from "../../shared/styles";
+import { breakpoints } from "../../shared/styles";
+import { HEADER_BACKGROUND_IMAGE_URL } from "../../shared/constants";
 
 const { TABLET_BREAKPOINT, MOBILE_BREAKPOINT } = breakpoints;
 
 export const HeaderWrapper = styled.header`
 	height: 120px;
-	// height: 10vh;
-	background-color: ${colors.HEADER_BACKGROUND_COLOR};
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	padding: 0 20px;
+	background-image: url("${HEADER_BACKGROUND_IMAGE_URL}");
+	background-repeat: no-repeat;
+	background-size: cover;
 	@media (max-width: ${MOBILE_BREAKPOINT}px) {
 		padding: 0;
 	}

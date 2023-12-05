@@ -1,15 +1,16 @@
-import { Mission, GenericObject, RequestPossibleStatuses } from "./types";
 import { BASE_URL } from "../config";
-import Spinner from "../components/spinner";
-import ErrorMessage from "../components/error_message";
 
 import {
 	MISSION_DESSERIALIZED_PROPERTIES,
 	MISSION_NOT_FOUND_ERROR_MESSAGE,
 } from "./constants";
-import { ReactElement } from "react";
+import { 
+	Mission, 
+	GenericObject, 
+	RequestPossibleStatuses
+} from "./types";
 
-const desserializeMission = (mission: GenericObject): Mission =>
+const desserializeMission = (mission: GenericObject<string | string[]>): Mission =>
 	Object.keys(mission).reduce(
 		(desserializedMission, missionProperty) => ({
 			...desserializedMission,
@@ -23,7 +24,7 @@ export const fetchMissions = async (): Promise<Mission[]> =>
 	await fetch(BASE_URL).then((response) =>
 		response
 			.json()
-			.then((missions: GenericObject[]) =>
+			.then((missions: GenericObject<string | string[]>[]) =>
 				missions.map((mission) => desserializeMission(mission))
 			)
 	);
@@ -35,33 +36,3 @@ export const fetchMission = async (id: string): Promise<Mission | void> =>
 
 export const convertListToPlainText = (list: (string | number)[]): string =>
 	list.join(", ");
-
-export const handleFetchMissionSuccess = ({
-	fetchedMission,
-	setMission,
-	setRequestStatus,
-}: GenericObject): void => {
-	if (!fetchedMission?.name) {
-		throw new Error(MISSION_NOT_FOUND_ERROR_MESSAGE);
-	}
-
-	if (fetchedMission) {
-		setMission(fetchedMission);
-		setRequestStatus(RequestPossibleStatuses.SUCCESS);
-	} else {
-		setRequestStatus(RequestPossibleStatuses.ERROR);
-	}
-};
-
-export const handleFetchMissionError = ({
-	errorMessage,
-	toggleMissionNotFound,
-	setRequestStatus,
-}: GenericObject): void => {
-	if (errorMessage === MISSION_NOT_FOUND_ERROR_MESSAGE) {
-		toggleMissionNotFound();
-	}
-
-	setRequestStatus(RequestPossibleStatuses.ERROR);
-};
-

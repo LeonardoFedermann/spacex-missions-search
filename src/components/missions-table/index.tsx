@@ -8,6 +8,7 @@ import {
     TABLE_TITLE_NAME,
     TABLE_TITLE_ID,
     TABLE_TITLE_WEBSITE,
+    TABLE_TITLE_FAVORITE,
     NO_MATCH_WITH_SEARCH_MESSAGE
 } from '../../shared/constants'
 
@@ -17,7 +18,7 @@ type MissionsTableProps = {
 
 const MissionsTable = ({ missions }: MissionsTableProps): ReactElement => (
     <>
-        {missions.length === 0 ? (
+        {!missions?.length ? (
             <NoMatchWithSearchMessage>
                 {NO_MATCH_WITH_SEARCH_MESSAGE}
             </NoMatchWithSearchMessage>
@@ -31,13 +32,16 @@ const MissionsTable = ({ missions }: MissionsTableProps): ReactElement => (
                         <MissionTableTitleCell>
                             {TABLE_TITLE_ID}
                         </MissionTableTitleCell>
-                        <MissionTableTitleCell isLastRightCell>
+                        <MissionTableTitleCell>
                             {TABLE_TITLE_WEBSITE}
+                        </MissionTableTitleCell>
+                        <MissionTableTitleCell>
+                            {TABLE_TITLE_FAVORITE}
                         </MissionTableTitleCell>
                     </tr>
                 </thead>
                 <tbody>
-                    {missions.map((mission, index) => (
+                    {missions.map(mission => (
                         <TableContentLine
                             key={mission.id}
                             name={mission.name}

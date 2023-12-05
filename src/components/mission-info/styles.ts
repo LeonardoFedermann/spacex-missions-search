@@ -31,3 +31,14 @@ export const MissionWebsiteLink = styled.a`
 		color: ${LIGHT_GREY};
 	}
 `;
+
+export const FavoriteButton = styled.button`
+	background: none;
+	color: ${colors.COLOR_WHITE};
+	border: none;
+	font-weight: 700;
+	font-size: 30px;
+	cursor: pointer;
+`;
+
+

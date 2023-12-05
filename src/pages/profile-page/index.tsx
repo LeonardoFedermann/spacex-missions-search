@@ -3,14 +3,11 @@ import { useParams } from "react-router";
 
 import MissionInfo from "../../components/mission-info";
 import Spinner from "../../components/spinner";
-import ErrorMessage from '../../components/error_message'
+import ErrorMessage from '../../components/error-message'
 import { ProfilePageWrapper, NavigateLink, GoBackIcon } from "./styles"
 
-import {
-    fetchMission,
-    handleFetchMissionError,
-    handleFetchMissionSuccess
-} from "../../shared/utils";
+import { fetchMission } from "../../shared/utils";
+import { handleFetchMissionSuccess, handleFetchMissionError } from "./utils";
 import {
     MISSION_NOT_FOUND_ERROR_MESSAGE,
     REQUEST_ERROR_MESSAGE

@@ -11,7 +11,8 @@ import {
     MissionTitle,
     MissionInfoWrapper,
     MissionSitesAnchorsWrapper,
-    MissionWebsiteLink
+    MissionWebsiteLink,
+    FavoriteButton
 } from "./styles"
 
 type MissionInfoProps = {
@@ -20,7 +21,11 @@ type MissionInfoProps = {
 
 const MissionInfo = ({ mission }: MissionInfoProps): ReactElement => (
     <>
-        <MissionTitle>{mission?.name ?? ''}</MissionTitle>
+        <MissionTitle>
+            {mission?.name ?? ''}
+            <FavoriteButton>&#9734;</FavoriteButton>
+            {/* ÍCONE PARA ESTRELHA CHEIA: &#9733; */}
+        </MissionTitle>
         <MissionInfoWrapper>
             <MissionInfoText title="Mission ID" content={mission?.id ?? ''} />
             <MissionInfoText

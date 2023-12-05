@@ -1,9 +1,6 @@
 :root {
 	background-color: #0e1111;
 	color: white;
-	background-image: url('https://solarsystem.nasa.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBdHBtIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--48570964873b06699c2329de0ece0e72b8a943dc/PIA20919-640.jpg');
-	background-repeat: no-repeat;
-	background-size: cover;
 }
 
 body {
