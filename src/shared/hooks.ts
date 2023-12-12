@@ -29,3 +29,11 @@ export const useDisplayedMissions = (
 		[fetchedMissions, search]
 	);
 
+export const useIsMissionFavorite = (
+	missionId: string,
+	favoriteMissionsIds: string[]
+): boolean =>
+	useMemo<boolean>(
+		() => favoriteMissionsIds.includes(missionId),
+		[favoriteMissionsIds, missionId]
+	);
